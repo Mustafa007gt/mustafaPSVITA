@@ -1,646 +1,1274 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مصطفى جيمرز</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>مصطفى جيمرز</title>
 
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1f1f1f);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #fff;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-    header {
-      background-color: #000000aa;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      box-shadow: 0 2px 10px #00f7ff80;
-      backdrop-filter: blur(8px);
-    }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
-      color: #fff;
-      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
-    }
+<style>
 
-    #searchInput {
-      padding: 8px 12px;
-      font-size: 14px;
-      border-radius: 8px;
-      border: 2px solid #00f7ff30;
-      outline: none;
-      background-color: #121212;
-      color: #fff;
-      font-family: 'Cairo', sans-serif;
-      transition: 0.3s;
-    }
+*{
+box-sizing:border-box;
+}
 
-    #searchInput:focus {
-      border-color: #00f7ff;
-      box-shadow: 0 0 10px #00f7ff50;
-    }
+:root{
+--cyan:#00eaff;
+--purple:#a855f7;
+--line:rgba(255,255,255,.08);
+}
 
-    .games-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      padding: 15px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+html{
+scroll-behavior:smooth;
+}
 
-    .game-card {
-      background: #121212dd;
-      border-radius: 16px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 0 20px #00f7ff30;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+color:#fff;
 
-    .game-card.hidden {
-      display: none !important;
-    }
+background:
+radial-gradient(circle at 15% 10%,rgba(0,234,255,.10),transparent 28%),
+radial-gradient(circle at 85% 20%,rgba(168,85,247,.13),transparent 30%),
+linear-gradient(145deg,#050509,#0c0b16 48%,#06060a);
 
-    .game-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 25px #00f7ff80;
-    }
+min-height:100vh;
+overflow-x:hidden;
+}
 
-    .badge-new {
-      position: absolute;
-      top: 15px;
-      right: -35px;
-      background: linear-gradient(45deg, #ff0055, #ff00a0);
-      color: white;
-      padding: 4px 35px;
-      font-size: 12px;
-      font-weight: bold;
-      transform: rotate(45deg);
-      box-shadow: 0 0 10px #ff0055;
-      text-shadow: 0 0 5px #fff;
-      z-index: 2;
-      letter-spacing: 1px;
-    }
+body::before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+opacity:.20;
 
-    .img-container {
-      width: 100%;
-      height: 140px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 15px;
-      border: 1px solid #00f7ff20;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
+background-image:
+linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
 
-    .game-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease, filter 0.4s ease;
-    }
+background-size:42px 42px;
+}
 
-    .game-card:hover .img-container {
-      border-color: #00f7ff;
-      box-shadow: 0 0 20px #00f7ffcc, 0 0 10px #ff00f750;
-    }
 
-    .game-card:hover img {
-      transform: scale(1.06);
-      filter: brightness(1.1);
-    }
+/* =========================
+   HEADER
+========================= */
 
-    .game-card h2 {
-      color: #00f7ff;
-      text-shadow: 0 0 5px #00f7ff;
-      margin: 10px 0 5px;
-      font-size: 1.15em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
-    }
+header{
+position:sticky;
+top:0;
+z-index:999;
 
-    .card-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-    }
+padding:12px 18px;
 
-    .download-link {
-      position: relative;
-      display: inline-block;
-      padding: 12px 20px;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 12px;
-      overflow: hidden;
-      background: linear-gradient(
-        270deg,
-        #ff00f7,
-        #00f7ff,
-        #00ff88,
-        #fffb00
-      );
-      background-size: 600% 600%;
-      animation: rgb-glow 8s ease infinite;
-      box-shadow: 0 0 15px #00f7ff88;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      font-size: 16px;
-      flex: 1;
-    }
+background:rgba(6,6,12,.78);
+backdrop-filter:blur(18px);
 
-    .download-link.counting {
-      background: #1a1a1a !important;
-      border: 2px solid #ff00f7;
-      animation: pulse-border 1.5s infinite;
-      box-shadow: 0 0 15px #ff00f780;
-      pointer-events: none;
-      color: #ff00f7 !important;
-      text-shadow: 0 0 8px #ff00f7;
-    }
+border-bottom:1px solid var(--line);
 
-    @keyframes pulse-border {
-      0% {
-        border-color: #ff00f7;
-        box-shadow: 0 0 10px #ff00f750;
-      }
+box-shadow:0 8px 30px rgba(0,0,0,.35);
+}
 
-      50% {
-        border-color: #00f7ff;
-        box-shadow: 0 0 20px #00f7ff80;
-      }
+.nav{
+max-width:1280px;
+margin:auto;
 
-      100% {
-        border-color: #ff00f7;
-        box-shadow: 0 0 10px #ff00f750;
-      }
-    }
+display:flex;
+align-items:center;
+justify-content:center;
+gap:15px;
+}
 
-    .download-link:not(.counting):hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px #00f7ffcc;
-    }
+.logo{
+width:43px;
+height:43px;
 
-    @keyframes rgb-glow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+border-radius:13px;
 
-    #toast-container {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-    }
+display:grid;
+place-items:center;
 
-    .toast-notification {
-      background: rgba(18, 18, 18, 0.95);
-      border: 2px solid #00f7ff;
-      color: #fff;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: bold;
-      box-shadow: 0 0 15px #00f7ff80, inset 0 0 10px #00f7ff20;
-      text-shadow: 0 0 5px #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 250px;
-      max-width: 350px;
-      transform: translateX(120%);
-      transition:
-        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-        opacity 0.4s;
-      opacity: 0;
-      backdrop-filter: blur(5px);
-    }
+background:
+linear-gradient(135deg,var(--cyan),var(--purple));
 
-    .toast-notification.show {
-      transform: translateX(0);
-      opacity: 1;
-    }
+box-shadow:
+0 0 22px rgba(0,234,255,.30);
 
-    footer {
-      background-color: rgba(6, 5, 15, 0.9);
-      margin-top: 60px;
-      padding: 30px 20px;
-      text-align: center;
-      position: relative;
-      border-top: 2px solid #ff00f7;
-      box-shadow: 0 -5px 25px rgba(255, 0, 247, 0.15);
-      backdrop-filter: blur(10px);
-    }
+font-size:21px;
+}
 
-    footer::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, #ff00f7, #00f7ff, #ff00f7);
-      background-size: 200% 100%;
-      animation: rgb-glow 4s linear infinite;
-    }
+header h1{
+margin:0;
+font-size:22px;
+font-weight:900;
 
-    .footer-content {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
+background:
+linear-gradient(90deg,#fff,var(--cyan),#d26bff);
 
-    .footer-title {
-      font-size: 1.5em;
-      color: #fff;
-      text-shadow: 0 0 10px #ff00f7, 0 0 20px #ff00f7;
-      margin: 0;
-    }
+-webkit-background-clip:text;
+background-clip:text;
 
-    .social-links {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin: 10px 0;
-    }
+color:transparent;
+}
 
-    .social-icon {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #121212;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
 
-    .social-icon.telegram:hover {
-      color: #0088cc;
-      border-color: #0088cc;
-      box-shadow: 0 0 15px rgba(0, 136, 204, 0.6);
-      transform: translateY(-3px);
-    }
+/* =========================
+   SEARCH
+========================= */
 
-    .footer-rights {
-      color: #777;
-      font-size: 13px;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
+.search-box{
+max-width:1280px;
+margin:18px auto 5px;
+padding:0 20px;
+}
 
-    /* شريط الاسم الكامل */
-    .game-name-bar {
-      position: fixed;
-      top: 75px;
-      left: 12px;
-      right: 12px;
-      z-index: 10001;
-      background: rgba(18, 18, 18, 0.97);
-      color: #00f7ff;
-      border: 1px solid #00f7ff;
-      border-radius: 10px;
-      padding: 10px 14px;
-      text-align: center;
-      font-family: 'Cairo', sans-serif;
-      font-size: 15px;
-      font-weight: bold;
-      white-space: nowrap;
-      overflow-x: auto;
-      box-shadow: 0 0 18px #00f7ff70;
-      text-shadow: 0 0 6px #00f7ff;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity .25s ease, transform .25s ease;
-      pointer-events: none;
-    }
+.search-wrap{
+position:relative;
+}
 
-    .game-name-bar.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.search-wrap i{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+color:#777;
+}
 
-    @media (max-width: 650px) {
-      .games-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        padding: 12px;
-      }
+#searchInput{
+width:100%;
 
-      .game-card {
-        padding: 8px;
-        border-radius: 15px;
-      }
+padding:13px 45px 13px 15px;
 
-      .img-container {
-        height: 140px;
-      }
+border-radius:13px;
 
-      .game-card h2 {
-        font-size: 1.05em;
-      }
+border:1px solid var(--line);
 
-      .download-link {
-        padding: 10px 8px;
-        font-size: 15px;
-      }
-    }
+outline:none;
 
-    @media (max-width: 390px) {
-      .games-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+background:rgba(13,13,23,.90);
+
+color:#fff;
+
+font-family:'Cairo',sans-serif;
+
+transition:.25s;
+}
+
+#searchInput:focus{
+border-color:var(--cyan);
+
+box-shadow:
+0 0 20px rgba(0,234,255,.12);
+}
+
+
+/* =========================
+   GAMES
+========================= */
+
+.games-container{
+max-width:1280px;
+margin:auto;
+
+padding:18px 20px 40px;
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.game-card{
+
+background:
+linear-gradient(
+160deg,
+rgba(20,20,33,.94),
+rgba(10,10,17,.97)
+);
+
+border:1px solid var(--line);
+
+border-radius:18px;
+
+padding:10px;
+
+position:relative;
+
+overflow:hidden;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.25);
+
+transition:.3s;
+
+animation:cardIn .55s both;
+}
+
+@keyframes cardIn{
+
+from{
+opacity:0;
+transform:translateY(18px);
+}
+
+to{
+opacity:1;
+transform:none;
+}
+
+}
+
+.game-card:hover{
+
+transform:translateY(-5px);
+
+border-color:
+rgba(0,234,255,.30);
+
+box-shadow:
+0 18px 40px rgba(0,0,0,.40),
+0 0 25px rgba(0,234,255,.08);
+}
+
+.game-card.hidden{
+display:none!important;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.img-container{
+
+width:100%;
+height:165px;
+
+border-radius:12px;
+
+overflow:hidden;
+
+margin-bottom:11px;
+
+border:1px solid rgba(255,255,255,.07);
+
+transition:.3s;
+}
+
+.img-container img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+transition:.4s;
+}
+
+.game-card:hover img{
+
+transform:scale(1.06);
+
+filter:brightness(1.08);
+}
+
+.game-card:hover .img-container{
+
+border-color:
+rgba(0,234,255,.45);
+
+box-shadow:
+0 0 20px rgba(0,234,255,.12);
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.game-card h2{
+
+margin:11px 3px 12px;
+
+font-size:15px;
+
+font-weight:900;
+
+color:#fff;
+
+text-align:right;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.card-actions{
+
+display:flex;
+
+gap:8px;
+
+align-items:center;
+
+justify-content:center;
+
+margin-top:8px;
+}
+
+.download-btn{
+
+position:relative;
+
+overflow:hidden;
+
+display:block;
+
+flex:1;
+
+padding:10px 12px;
+
+border-radius:11px;
+
+text-align:center;
+
+text-decoration:none;
+
+font-family:'Cairo',sans-serif;
+
+font-size:13px;
+
+font-weight:900;
+
+color:#061016;
+
+background:
+linear-gradient(
+135deg,
+var(--cyan),
+#765cff
+);
+
+box-shadow:
+0 7px 20px rgba(0,234,255,.13);
+
+transition:.25s;
+
+cursor:pointer;
+}
+
+.download-btn::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-80%;
+
+width:45%;
+height:100%;
+
+background:rgba(255,255,255,.25);
+
+transform:skewX(-25deg);
+
+animation:shine 3s infinite;
+}
+
+@keyframes shine{
+
+0%{
+left:-80%;
+}
+
+50%{
+left:130%;
+}
+
+100%{
+left:130%;
+}
+
+}
+
+.download-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 10px 25px rgba(0,234,255,.25);
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.download-btn.counting{
+
+background:#151520!important;
+
+color:var(--cyan)!important;
+
+border:1px solid var(--cyan);
+
+animation:pulse 1.3s infinite;
+
+pointer-events:none;
+}
+
+@keyframes pulse{
+
+50%{
+box-shadow:
+0 0 20px rgba(0,234,255,.35);
+}
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+#toast-container{
+
+position:fixed;
+
+bottom:22px;
+right:20px;
+
+z-index:10000;
+
+display:flex;
+
+flex-direction:column;
+
+gap:9px;
+
+pointer-events:none;
+}
+
+.toast-notification{
+
+min-width:250px;
+max-width:350px;
+
+padding:12px 16px;
+
+border-radius:13px;
+
+background:rgba(14,14,24,.95);
+
+border:1px solid var(--cyan);
+
+box-shadow:
+0 12px 35px rgba(0,0,0,.40);
+
+backdrop-filter:blur(14px);
+
+font-size:13px;
+
+font-weight:700;
+
+transform:translateX(120%);
+
+opacity:0;
+
+transition:.35s;
+}
+
+.toast-notification.show{
+
+transform:translateX(0);
+
+opacity:1;
+}
+
+
+/* =========================
+   TELEGRAM
+========================= */
+
+.telegram-float{
+
+position:fixed;
+
+bottom:20px;
+left:20px;
+
+z-index:1000;
+
+width:50px;
+height:50px;
+
+border-radius:50%;
+
+display:grid;
+place-items:center;
+
+background:#151522;
+
+border:1px solid var(--cyan);
+
+box-shadow:
+0 0 20px rgba(0,234,255,.25);
+
+transition:.25s;
+}
+
+.telegram-float:hover{
+
+transform:
+translateY(-4px)
+scale(1.05);
+
+box-shadow:
+0 0 28px rgba(0,234,255,.45);
+}
+
+.telegram-float img{
+
+width:34px;
+height:34px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+margin-top:20px;
+
+padding:38px 20px;
+
+text-align:center;
+
+background:#06060c;
+
+border-top:
+1px solid rgba(0,234,255,.15);
+
+box-shadow:
+0 -10px 35px rgba(0,0,0,.25);
+}
+
+.footer-content{
+
+max-width:600px;
+
+margin:auto;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:15px;
+}
+
+.footer-title{
+
+margin:0;
+
+font-size:22px;
+
+font-weight:900;
+
+background:
+linear-gradient(
+90deg,
+#fff,
+var(--cyan),
+#d26bff
+);
+
+-webkit-background-clip:text;
+background-clip:text;
+
+color:transparent;
+}
+
+.social-links{
+
+display:flex;
+
+gap:12px;
+}
+
+.social-icon{
+
+width:45px;
+height:45px;
+
+border-radius:13px;
+
+display:grid;
+place-items:center;
+
+background:
+rgba(255,255,255,.04);
+
+border:1px solid var(--line);
+
+color:#fff;
+
+text-decoration:none;
+
+font-size:19px;
+
+transition:.25s;
+}
+
+.social-icon:hover{
+
+transform:translateY(-3px);
+
+border-color:var(--cyan);
+
+box-shadow:
+0 0 18px rgba(0,234,255,.18);
+}
+
+.footer-rights{
+
+margin:0;
+
+color:#5f6170;
+
+font-size:12px;
+}
+
+
+/* =========================
+   NO RESULTS
+========================= */
+
+.no-results{
+
+display:none;
+
+grid-column:1/-1;
+
+text-align:center;
+
+padding:50px 20px;
+
+color:#777;
+
+font-size:16px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+.games-container{
+grid-template-columns:
+repeat(3,1fr);
+}
+
+}
+
+@media(max-width:700px){
+
+header{
+padding:10px 12px;
+}
+
+header h1{
+font-size:19px;
+}
+
+.logo{
+width:40px;
+height:40px;
+}
+
+.search-box{
+padding:0 12px;
+margin-top:13px;
+}
+
+.games-container{
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:9px;
+
+padding:12px;
+}
+
+.game-card{
+
+padding:8px;
+
+border-radius:14px;
+}
+
+.img-container{
+
+height:130px;
+
+border-radius:10px;
+}
+
+.game-card h2{
+font-size:13px;
+}
+
+.download-btn{
+
+font-size:12px;
+
+padding:9px 7px;
+}
+
+.telegram-float{
+
+width:46px;
+height:46px;
+
+bottom:15px;
+left:15px;
+}
+
+}
+
+@media(max-width:390px){
+
+.img-container{
+height:112px;
+}
+
+.game-card h2{
+font-size:12px;
+}
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <div id="toast-container"></div>
-
-  <header>
-    <div style="display: flex; align-items: center; gap: 15px;">
-      <input id="searchInput" type="text" placeholder="ابحث عن لعبة..." />
-      <h1>مصطفى جيمرز</h1>
-    </div>
-  </header>
-
-  <main class="games-container">
-
-    <div class="game-card">
-      <div class="badge-new">الافضل</div>
-
-      <div class="img-container">
-        <img src="images/unc.jpg" alt="uncharted" />
-      </div>
-
-      <h2>Uncharted Golden Abyss</h2>
-
-      <div class="card-actions">
-        <a
-          class="download-link"
-          href="https://modsfire.com/coT21D3m594vp0w"
-          onclick="startDownload(event, this)"
-        >تحميل</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="badge-new">جديد</div>
-
-      <div class="img-container">
-        <img src="images/mkk9.jpg" alt="mkk9" />
-      </div>
-
-      <h2>MORTAL KOMBAT 9</h2>
-
-      <div class="card-actions">
-        <a
-          class="download-link"
-          href="https://modsfire.com/RS37N00Q24vkhJb"
-          onclick="startDownload(event, this)"
-        >تحميل</a>
-      </div>
-    </div>
 
-    <div class="game-card">
-      <div class="badge-new">جديد</div>
+<div id="toast-container"></div>
 
-      <div class="img-container">
-        <img src="images/gowce.jpg" alt="god of war collection" />
-      </div>
 
-      <h2>GOD OF WAR COLLECTION</h2>
+<!-- HEADER -->
 
-      <div class="card-actions">
-        <a
-          class="download-link"
-          href="https://modsfire.com/mI7VBzsdc4E31Qz"
-          onclick="startDownload(event, this)"
-        >تحميل</a>
-      </div>
-    </div>
+<header>
 
-    <div class="game-card">
-      <div class="badge-new">جديد</div>
+<div class="nav">
 
-      <div class="img-container">
-        <img src="images/spmm.jpg" alt="spmm" />
-      </div>
+<div class="logo">
 
-      <h2>THE AMAZING SPIDER MAN</h2>
+<i class="fa-solid fa-gamepad"></i>
 
-      <div class="card-actions">
-        <a
-          class="download-link"
-          href="https://modsfire.com/A506QIhVbWq23AZ"
-          onclick="startDownload(event, this)"
-        >تحميل</a>
-      </div>
-    </div>
+</div>
 
-  </main>
+<h1>مصطفى جيمرز</h1>
 
-  <footer>
-    <div class="footer-content">
+</div>
 
-      <p class="footer-title">مصطفى جيمرز</p>
+</header>
 
-      <div class="social-links">
-        <a
-          href="https://t.me/mustafaGWZ"
-          target="_blank"
-          class="social-icon telegram"
-        >
-          <i class="fab fa-telegram-plane"></i>
-        </a>
-      </div>
 
-      <p class="footer-rights">
-        جميع الحقوق محفوظة © 2026
-      </p>
+<!-- SEARCH -->
 
-    </div>
-  </footer>
+<div class="search-box">
 
-  <script>
+<div class="search-wrap">
 
-    const searchInput = document.getElementById('searchInput');
+<i class="fa-solid fa-magnifying-glass"></i>
 
-    searchInput.addEventListener('input', applyFilter);
+<input
+id="searchInput"
+type="text"
+placeholder="ابحث عن لعبة..."
+autocomplete="off"
+>
 
-    function applyFilter() {
-      const query = searchInput.value.toLowerCase();
-      const gameCards = document.querySelectorAll('.game-card');
+</div>
 
-      gameCards.forEach(card => {
-        const title = card.querySelector('h2').textContent.toLowerCase();
+</div>
 
-        if (title.includes(query)) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
 
-    // نظام الإشعارات
-    function showToast(message) {
-      const container = document.getElementById('toast-container');
+<!-- GAMES -->
 
-      const toast = document.createElement('div');
+<main class="games-container">
 
-      toast.className = 'toast-notification';
 
-      toast.innerHTML = message;
+<!-- UNCHARTED -->
 
-      container.appendChild(toast);
+<div class="game-card">
 
-      setTimeout(() => {
-        toast.classList.add('show');
-      }, 50);
+<div class="img-container">
 
-      setTimeout(() => {
-        toast.classList.remove('show');
+<img
+src="images/unc.jpg"
+alt="uncharted"
+>
 
-        setTimeout(() => {
-          toast.remove();
-        }, 400);
+</div>
 
-      }, 3000);
-    }
+<h2>Uncharted Golden Abyss</h2>
 
-    // العداد التنازلي للتحميل
-    function startDownload(event, element) {
+<div class="card-actions">
 
-      event.preventDefault();
+<a
+class="download-btn"
+href="https://modsfire.com/coT21D3m594vp0w"
+onclick="startDownload(event,this)"
+>
+تحميل
+</a>
 
-      const targetUrl = element.getAttribute('href');
+</div>
 
-      const gameTitle =
-        element.parentElement.parentElement
-        .querySelector('h2').textContent;
+</div>
 
-      let timeLeft = 3;
 
-      element.classList.add('counting');
+<!-- MORTAL KOMBAT 9 -->
 
-      element.textContent = `تجهيز.. (${timeLeft})`;
+<div class="game-card">
 
-      showToast(
-        `🛡️ جاري تجهيز رابط آمن للعبة:
-        <br>
-        <span style="color:#00f7ff">${gameTitle}</span>`
-      );
+<div class="img-container">
 
-      const countdown = setInterval(() => {
+<img
+src="images/mkk9.jpg"
+alt="mkk9"
+>
 
-        timeLeft--;
+</div>
 
-        if (timeLeft <= 0) {
+<h2>MORTAL KOMBAT 9</h2>
 
-          clearInterval(countdown);
+<div class="card-actions">
 
-          element.classList.remove('counting');
+<a
+class="download-btn"
+href="https://modsfire.com/RS37N00Q24vkhJb"
+onclick="startDownload(event,this)"
+>
+تحميل
+</a>
 
-          element.textContent = 'تحميل';
+</div>
 
-          window.open(targetUrl, '_blank');
+</div>
 
-        } else {
 
-          element.textContent = `تجهيز.. (${timeLeft})`;
+<!-- GOD OF WAR COLLECTION -->
 
-        }
+<div class="game-card">
 
-      }, 1000);
-    }
+<div class="img-container">
 
-    // إظهار الاسم الكامل عند لمس الاسم الطويل
-    document.querySelectorAll('.game-card h2').forEach(title => {
+<img
+src="images/gowce.jpg"
+alt="god of war collection"
+>
 
-      title.addEventListener('click', () => {
+</div>
 
-        if (title.scrollWidth <= title.clientWidth) {
-          return;
-        }
+<h2>GOD OF WAR COLLECTION</h2>
 
-        document
-          .querySelectorAll('.game-name-bar')
-          .forEach(x => x.remove());
+<div class="card-actions">
 
-        const bar = document.createElement('div');
+<a
+class="download-btn"
+href="https://modsfire.com/mI7VBzsdc4E31Qz"
+onclick="startDownload(event,this)"
+>
+تحميل
+</a>
 
-        bar.className = 'game-name-bar';
+</div>
 
-        bar.textContent = title.textContent;
+</div>
 
-        document.body.appendChild(bar);
 
-        requestAnimationFrame(() => {
-          bar.classList.add('show');
-        });
+<!-- THE AMAZING SPIDER MAN -->
 
-        setTimeout(() => {
+<div class="game-card">
 
-          bar.classList.remove('show');
+<div class="img-container">
 
-          setTimeout(() => {
-            bar.remove();
-          }, 250);
+<img
+src="images/spmm.jpg"
+alt="spmm"
+>
 
-        }, 2500);
+</div>
 
-      });
+<h2>THE AMAZING SPIDER MAN</h2>
 
-    });
+<div class="card-actions">
 
-  </script>
+<a
+class="download-btn"
+href="https://modsfire.com/A506QIhVbWq23AZ"
+onclick="startDownload(event,this)"
+>
+تحميل
+</a>
+
+</div>
+
+</div>
+
+
+<!-- NO RESULTS -->
+
+<div
+class="no-results"
+id="noResults"
+>
+
+<i
+class="fa-solid fa-gamepad"
+style="
+font-size:40px;
+margin-bottom:10px;
+color:#00eaff;
+"
+></i>
+
+<br>
+
+لم يتم العثور على اللعبة
+
+</div>
+
+
+</main>
+
+
+<!-- TELEGRAM -->
+
+<a
+href="https://t.me/mustafaGWZ"
+target="_blank"
+class="telegram-float"
+title="تابعني على التليجرام"
+>
+
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+alt="Telegram"
+>
+
+</a>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-content">
+
+<p class="footer-title">
+مصطفى جيمرز
+</p>
+
+<div class="social-links">
+
+<a
+href="https://t.me/mustafaGWZ"
+target="_blank"
+class="social-icon"
+>
+
+<i class="fab fa-telegram-plane"></i>
+
+</a>
+
+</div>
+
+<p class="footer-rights">
+جميع الحقوق محفوظة © 2026
+</p>
+
+</div>
+
+</footer>
+
+
+<script>
+
+
+/* =========================
+   SEARCH
+========================= */
+
+const searchInput =
+document.getElementById(
+"searchInput"
+);
+
+const noResults =
+document.getElementById(
+"noResults"
+);
+
+
+searchInput.addEventListener(
+"input",
+function(){
+
+const query =
+this.value
+.toLowerCase()
+.trim();
+
+let visible=0;
+
+
+document
+.querySelectorAll(
+".game-card"
+)
+.forEach(card=>{
+
+const title =
+card
+.querySelector("h2")
+.textContent
+.toLowerCase();
+
+
+if(title.includes(query)){
+
+card.classList.remove(
+"hidden"
+);
+
+visible++;
+
+}else{
+
+card.classList.add(
+"hidden"
+);
+
+}
+
+});
+
+
+if(visible===0){
+
+noResults.style.display=
+"block";
+
+}else{
+
+noResults.style.display=
+"none";
+
+}
+
+});
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+
+const container =
+document.getElementById(
+"toast-container"
+);
+
+const toast =
+document.createElement(
+"div"
+);
+
+toast.className =
+"toast-notification";
+
+toast.innerHTML =
+message;
+
+container.appendChild(
+toast
+);
+
+
+setTimeout(()=>{
+
+toast.classList.add(
+"show"
+);
+
+},50);
+
+
+setTimeout(()=>{
+
+toast.classList.remove(
+"show"
+);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},400);
+
+},3000);
+
+}
+
+
+/* =========================
+   DOWNLOAD
+========================= */
+
+function startDownload(
+event,
+element
+){
+
+event.preventDefault();
+
+
+if(
+element.classList.contains(
+"counting"
+)
+)return;
+
+
+const targetUrl =
+element.getAttribute(
+"href"
+);
+
+
+const card =
+element.closest(
+".game-card"
+);
+
+
+const gameTitle =
+card
+.querySelector("h2")
+.textContent
+.trim();
+
+
+let timeLeft=3;
+
+
+element.classList.add(
+"counting"
+);
+
+
+element.textContent =
+`تجهيز.. (${timeLeft})`;
+
+
+showToast(
+
+`🛡️ جاري تجهيز رابط التحميل:
+<br>
+
+<span style="color:#00eaff">
+
+${gameTitle}
+
+</span>`
+
+);
+
+
+const countdown =
+setInterval(()=>{
+
+timeLeft--;
+
+
+if(timeLeft<=0){
+
+clearInterval(
+countdown
+);
+
+
+element.classList.remove(
+"counting"
+);
+
+
+element.textContent=
+"تحميل";
+
+
+window.open(
+targetUrl,
+"_blank"
+);
+
+}else{
+
+element.textContent =
+`تجهيز.. (${timeLeft})`;
+
+}
+
+},1000);
+
+}
+
+</script>
+
 
 </body>
+
 </html>

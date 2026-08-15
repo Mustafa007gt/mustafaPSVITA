@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مصطفى جيمرز</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     * {
       box-sizing: border-box;
@@ -47,10 +49,10 @@
     }
 
     #searchInput {
-      padding: 8px 12px; 
-      font-size: 14px; 
-      border-radius: 8px; 
-      border: 2px solid #00f7ff30; 
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 2px solid #00f7ff30;
       outline: none;
       background-color: #121212;
       color: #fff;
@@ -63,40 +65,11 @@
       box-shadow: 0 0 10px #00f7ff50;
     }
 
-    .categories-container {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-
-    .category-btn {
-      background: #121212dd;
-      color: #fff;
-      border: 1px solid #00f7ff50;
-      padding: 8px 20px;
-      font-family: 'Cairo', sans-serif;
-      font-size: 15px;
-      font-weight: bold;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #00f7ff20;
-    }
-
-    .category-btn.active, .category-btn:hover {
-      background: linear-gradient(90deg, #00f7ff, #ff00f7);
-      border-color: transparent;
-      box-shadow: 0 0 15px #00f7ff80;
-      transform: translateY(-2px);
-    }
-
     .games-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      padding: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 15px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -104,7 +77,7 @@
     .game-card {
       background: #121212dd;
       border-radius: 16px;
-      padding: 20px;
+      padding: 10px;
       text-align: center;
       box-shadow: 0 0 20px #00f7ff30;
       transition: transform 0.3s, box-shadow 0.3s;
@@ -139,7 +112,7 @@
 
     .img-container {
       width: 100%;
-      height: 180px;
+      height: 140px;
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 15px;
@@ -167,43 +140,12 @@
     .game-card h2 {
       color: #00f7ff;
       text-shadow: 0 0 5px #00f7ff;
-      margin: 10px 0 5px 0;
-      font-size: 1.4em;
-    }
-
-    .rating-stars {
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 10px;
-      flex-direction: row-reverse; 
-    }
-
-    .rating-stars span {
-      font-size: 22px;
-      color: #444;
-      cursor: pointer;
-      transition: color 0.2s, transform 0.1s;
-    }
-
-    .rating-stars span:hover,
-    .rating-stars span:hover ~ span,
-    .rating-stars span.active,
-    .rating-stars span.active ~ span {
-      color: #ffcc00 !important;
-      text-shadow: 0 0 10px #ffcc00;
-    }
-
-    .rating-stars span:hover {
-      transform: scale(1.2);
-    }
-
-    .game-card p {
-      color: #ccc;
-      font-size: 14px;
-      height: 40px;
+      margin: 10px 0 5px;
+      font-size: 1.15em;
+      white-space: nowrap;
       overflow: hidden;
-      margin-bottom: 15px;
+      text-overflow: ellipsis;
+      cursor: pointer;
     }
 
     .card-actions {
@@ -223,7 +165,13 @@
       text-decoration: none;
       border-radius: 12px;
       overflow: hidden;
-      background: linear-gradient(270deg, #ff00f7, #00f7ff, #00ff88, #fffb00);
+      background: linear-gradient(
+        270deg,
+        #ff00f7,
+        #00f7ff,
+        #00ff88,
+        #fffb00
+      );
       background-size: 600% 600%;
       animation: rgb-glow 8s ease infinite;
       box-shadow: 0 0 15px #00f7ff88;
@@ -245,37 +193,25 @@
     }
 
     @keyframes pulse-border {
-      0% { border-color: #ff00f7; box-shadow: 0 0 10px #ff00f750; }
-      50% { border-color: #00f7ff; box-shadow: 0 0 20px #00f7ff80; }
-      100% { border-color: #ff00f7; box-shadow: 0 0 10px #ff00f750; }
+      0% {
+        border-color: #ff00f7;
+        box-shadow: 0 0 10px #ff00f750;
+      }
+
+      50% {
+        border-color: #00f7ff;
+        box-shadow: 0 0 20px #00f7ff80;
+      }
+
+      100% {
+        border-color: #ff00f7;
+        box-shadow: 0 0 10px #ff00f750;
+      }
     }
 
     .download-link:not(.counting):hover {
       transform: translateY(-2px);
       box-shadow: 0 0 25px #00f7ffcc;
-    }
-
-    .youtube-icon-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(255, 0, 0, 0.1);
-      border: 2px solid #ff0000;
-      color: #ff3333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-    }
-
-    .youtube-icon-btn:hover {
-      background: #ff0000;
-      color: #fff;
-      box-shadow: 0 0 20px #ff0000;
-      transform: translateY(-2px);
     }
 
     @keyframes rgb-glow {
@@ -311,7 +247,9 @@
       min-width: 250px;
       max-width: 350px;
       transform: translateX(120%);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+      transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.4s;
       opacity: 0;
       backdrop-filter: blur(5px);
     }
@@ -319,11 +257,6 @@
     .toast-notification.show {
       transform: translateX(0);
       opacity: 1;
-    }
-
-    .toast-rating {
-      border-color: #ffcc00;
-      box-shadow: 0 0 15px #ffcc0080, inset 0 0 10px #ffcc0020;
     }
 
     footer {
@@ -387,13 +320,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .social-icon.youtube:hover {
-      color: #ff0000;
-      border-color: #ff0000;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-      transform: translateY(-3px);
-    }
-
     .social-icon.telegram:hover {
       color: #0088cc;
       border-color: #0088cc;
@@ -407,8 +333,72 @@
       margin: 0;
       letter-spacing: 0.5px;
     }
+
+    /* شريط الاسم الكامل */
+    .game-name-bar {
+      position: fixed;
+      top: 75px;
+      left: 12px;
+      right: 12px;
+      z-index: 10001;
+      background: rgba(18, 18, 18, 0.97);
+      color: #00f7ff;
+      border: 1px solid #00f7ff;
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow-x: auto;
+      box-shadow: 0 0 18px #00f7ff70;
+      text-shadow: 0 0 6px #00f7ff;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events: none;
+    }
+
+    .game-name-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 650px) {
+      .games-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .game-card {
+        padding: 8px;
+        border-radius: 15px;
+      }
+
+      .img-container {
+        height: 140px;
+      }
+
+      .game-card h2 {
+        font-size: 1.05em;
+      }
+
+      .download-link {
+        padding: 10px 8px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .games-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <div id="toast-container"></div>
@@ -420,98 +410,108 @@
     </div>
   </header>
 
-  <div class="categories-container">
-    <button class="category-btn active" onclick="filterCategory('all')">الكل</button>
-    <button class="category-btn" onclick="filterCategory('open-world')">عالم مفتوح</button>
-    <button class="category-btn" onclick="filterCategory('cars')">سيارات وشاحنات</button>
-    <button class="category-btn" onclick="filterCategory('sports')">رياضة كرة قدم</button>
-    <button class="category-btn" onclick="filterCategory('action')">أكشن وقتال</button>
-    <button class="category-btn" onclick="filterCategory('horror')">رعب وغموض</button>
-  </div>
-
   <main class="games-container">
 
-    <div class="game-card" data-category="action">
+    <div class="game-card">
       <div class="badge-new">الافضل</div>
-      <div class="img-container"><img src="images/unc.jpg" alt="uncharted" /></div>
-      <h2>Uncharted Golden Abyss </h2>
-      <div class="rating-stars" data-stars="5"><span data-value="5">★</span><span data-value="4">★</span><span data-value="3">★</span><span data-value="2">★</span><span data-value="1">★</span></div>
-      <p>اشهر لعبة اكشن على الاطلاق</p>
+
+      <div class="img-container">
+        <img src="images/unc.jpg" alt="uncharted" />
+      </div>
+
+      <h2>Uncharted Golden Abyss</h2>
+
       <div class="card-actions">
-        <a class="download-link" href="https://modsfire.com/coT21D3m594vp0w" onclick="startDownload(event, this)">تحميل</a>
-        <a class="youtube-icon-btn" href="https://youtu.be/p2KOLmN2rhM?si=aJJHm8Uk8SLD63r-" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a
+          class="download-link"
+          href="https://modsfire.com/coT21D3m594vp0w"
+          onclick="startDownload(event, this)"
+        >تحميل</a>
       </div>
     </div>
 
-     <div class="game-card" data-category="action">
+    <div class="game-card">
       <div class="badge-new">جديد</div>
-      <div class="img-container"><img src="images/mkk9.jpg" alt="mkk9" /></div>
+
+      <div class="img-container">
+        <img src="images/mkk9.jpg" alt="mkk9" />
+      </div>
+
       <h2>MORTAL KOMBAT 9</h2>
-      <div class="rating-stars" data-stars="5"><span data-value="5">★</span><span data-value="4">★</span><span data-value="3">★</span><span data-value="2">★</span><span data-value="1">★</span></div>
-      <p>افضل لعبة قتال على التطلاق  </p>
+
       <div class="card-actions">
-        <a class="download-link" href="https://modsfire.com/RS37N00Q24vkhJb" onclick="startDownload(event, this)">تحميل</a>
-        <a class="youtube-icon-btn" href="https://t.me/ogGWZ/321" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a
+          class="download-link"
+          href="https://modsfire.com/RS37N00Q24vkhJb"
+          onclick="startDownload(event, this)"
+        >تحميل</a>
       </div>
     </div>
 
-      <div class="game-card" data-category="action">
+    <div class="game-card">
       <div class="badge-new">جديد</div>
-      <div class="img-container"><img src="images/gowce.jpg" alt="god of war collection" /></div>
-      <h2> GOD OF WAR COLLECTION</h2>
-      <div class="rating-stars" data-stars="5"><span data-value="5">★</span><span data-value="4">★</span><span data-value="3">★</span><span data-value="2">★</span><span data-value="1">★</span></div>
-      <p> النسخة المحسنة من الجزء الاول والثاني في لعبو واحدوة  </p>
+
+      <div class="img-container">
+        <img src="images/gowce.jpg" alt="god of war collection" />
+      </div>
+
+      <h2>GOD OF WAR COLLECTION</h2>
+
       <div class="card-actions">
-        <a class="download-link" href="https://modsfire.com/mI7VBzsdc4E31Qz" onclick="startDownload(event, this)">تحميل</a>
-        <a class="youtube-icon-btn" href="https://t.me/ogGWZ/322" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a
+          class="download-link"
+          href="https://modsfire.com/mI7VBzsdc4E31Qz"
+          onclick="startDownload(event, this)"
+        >تحميل</a>
       </div>
     </div>
 
-
-     <div class="game-card" data-category="action">
+    <div class="game-card">
       <div class="badge-new">جديد</div>
-      <div class="img-container"><img src="images/spmm.jpg" alt="spmm" /></div>
-      <h2>THE AMAZING SPIDER MAN </h2>
-      <div class="rating-stars" data-stars="5"><span data-value="5">★</span><span data-value="4">★</span><span data-value="3">★</span><span data-value="2">★</span><span data-value="1">★</span></div>
-      <p> النسخة الكاملة من لعبة سبايدرمان المدهش  </p>
+
+      <div class="img-container">
+        <img src="images/spmm.jpg" alt="spmm" />
+      </div>
+
+      <h2>THE AMAZING SPIDER MAN</h2>
+
       <div class="card-actions">
-        <a class="download-link" href="https://modsfire.com/A506QIhVbWq23AZ" onclick="startDownload(event, this)">تحميل</a>
-        <a class="youtube-icon-btn" href="https://t.me/ogGWZ/324"><i class="fab fa-youtube"></i></a>
+        <a
+          class="download-link"
+          href="https://modsfire.com/A506QIhVbWq23AZ"
+          onclick="startDownload(event, this)"
+        >تحميل</a>
       </div>
     </div>
 
-  
   </main>
 
   <footer>
     <div class="footer-content">
+
       <p class="footer-title">مصطفى جيمرز</p>
+
       <div class="social-links">
-        <a href="https://youtube.com/@mustafqaz007?si=0ho55hQu1tRNxBTw" target="_blank" class="social-icon youtube">
-          <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://t.me/mustafaGWZ" target="_blank" class="social-icon telegram">
+        <a
+          href="https://t.me/mustafaGWZ"
+          target="_blank"
+          class="social-icon telegram"
+        >
           <i class="fab fa-telegram-plane"></i>
         </a>
       </div>
-      <p class="footer-rights">جميع الحقوق محفوظة © 2026</p>
+
+      <p class="footer-rights">
+        جميع الحقوق محفوظة © 2026
+      </p>
+
     </div>
   </footer>
 
   <script>
-    let currentCategory = 'all';
-
-    function filterCategory(category) {
-      currentCategory = category;
-      const buttons = document.querySelectorAll('.category-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      if(window.event && window.event.target) {
-        window.event.target.classList.add('active');
-      }
-      applyFilter();
-    }
 
     const searchInput = document.getElementById('searchInput');
+
     searchInput.addEventListener('input', applyFilter);
 
     function applyFilter() {
@@ -520,13 +520,8 @@
 
       gameCards.forEach(card => {
         const title = card.querySelector('h2').textContent.toLowerCase();
-        const description = card.querySelector('p').textContent.toLowerCase();
-        const cardCategory = card.getAttribute('data-category');
 
-        const matchesSearch = title.includes(query) || description.includes(query);
-        const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
-
-        if (matchesSearch && matchesCategory) {
+        if (title.includes(query)) {
           card.classList.remove('hidden');
         } else {
           card.classList.add('hidden');
@@ -534,15 +529,16 @@
       });
     }
 
-    // نظام الإشعارات المنبثقة
-    function showToast(message, isRating = false) {
+    // نظام الإشعارات
+    function showToast(message) {
       const container = document.getElementById('toast-container');
+
       const toast = document.createElement('div');
+
       toast.className = 'toast-notification';
-      if(isRating) {
-        toast.classList.add('toast-rating');
-      }
+
       toast.innerHTML = message;
+
       container.appendChild(toast);
 
       setTimeout(() => {
@@ -551,70 +547,100 @@
 
       setTimeout(() => {
         toast.classList.remove('show');
+
         setTimeout(() => {
           toast.remove();
         }, 400);
+
       }, 3000);
     }
 
     // العداد التنازلي للتحميل
     function startDownload(event, element) {
+
       event.preventDefault();
+
       const targetUrl = element.getAttribute('href');
-      const gameTitle = element.parentElement.parentElement.querySelector('h2').textContent;
+
+      const gameTitle =
+        element.parentElement.parentElement
+        .querySelector('h2').textContent;
+
       let timeLeft = 3;
 
       element.classList.add('counting');
+
       element.textContent = `تجهيز.. (${timeLeft})`;
-      showToast(`🛡️ جاري تجهيز رابط آمن للعبة: <br><span style="color:#00f7ff">${gameTitle}</span>`);
+
+      showToast(
+        `🛡️ جاري تجهيز رابط آمن للعبة:
+        <br>
+        <span style="color:#00f7ff">${gameTitle}</span>`
+      );
 
       const countdown = setInterval(() => {
+
         timeLeft--;
+
         if (timeLeft <= 0) {
+
           clearInterval(countdown);
+
           element.classList.remove('counting');
+
           element.textContent = 'تحميل';
-          window.open(targetUrl, '_blank'); 
+
+          window.open(targetUrl, '_blank');
+
         } else {
+
           element.textContent = `تجهيز.. (${timeLeft})`;
+
         }
+
       }, 1000);
     }
 
-    // التقييم بالنجوم التفاعلية - تم إصلاحه ليعمل بشكل معزول وصحيح لكل كرت
-    document.querySelectorAll('.rating-stars').forEach(container => {
-      const defaultStars = parseInt(container.getAttribute('data-stars')) || 5;
-      const stars = container.querySelectorAll('span');
-      
-      const setStarsValue = (val) => {
-        stars.forEach(star => {
-          const starValue = parseInt(star.getAttribute('data-value'));
-          if (starValue <= val) {
-            star.classList.add('active');
-          } else {
-            star.classList.remove('active');
-          }
+    // إظهار الاسم الكامل عند لمس الاسم الطويل
+    document.querySelectorAll('.game-card h2').forEach(title => {
+
+      title.addEventListener('click', () => {
+
+        if (title.scrollWidth <= title.clientWidth) {
+          return;
+        }
+
+        document
+          .querySelectorAll('.game-name-bar')
+          .forEach(x => x.remove());
+
+        const bar = document.createElement('div');
+
+        bar.className = 'game-name-bar';
+
+        bar.textContent = title.textContent;
+
+        document.body.appendChild(bar);
+
+        requestAnimationFrame(() => {
+          bar.classList.add('show');
         });
-      };
 
-      setStarsValue(defaultStars);
+        setTimeout(() => {
 
-      stars.forEach(star => {
-        star.addEventListener('click', (e) => {
-          e.stopPropagation(); 
-          const clickedValue = parseInt(star.getAttribute('data-value'));
-          
-          // تحديد الكرت الحالي للحصول على العنوان بدقة
-          const card = container.closest('.game-card');
-          const gameTitle = card ? card.querySelector('h2').textContent : "اللعبة";
-          
-          container.setAttribute('data-stars', clickedValue);
-          setStarsValue(clickedValue);
+          bar.classList.remove('show');
 
-          showToast(`⭐ شكراً لتقييمك لعبة <span style="color:#ffcc00">${gameTitle}</span> بـ ${clickedValue} نجوم!`, true);
-        });
+          setTimeout(() => {
+            bar.remove();
+          }, 250);
+
+        }, 2500);
+
       });
+
     });
+
   </script>
+
 </body>
 </html>
